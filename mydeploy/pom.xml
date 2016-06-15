@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bhan.demo</groupId>
+		<artifactId>mydemo</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.bhan.deploy</groupId>
+	<artifactId>mydeploy</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>mydeploy</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>1.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>deploy-db</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<version>3.0.5</version>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<configuration>
+									<propertyFileWillOverride>true</propertyFileWillOverride>
+									<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+									<!-- <changeLogFile>src/main/resources/db/deploy-changelog-0.1.xml</changeLogFile> -->
+								</configuration>
+								<goals>
+									<goal>update</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

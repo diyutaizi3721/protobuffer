@@ -1,0 +1,4 @@
+2015-03-04 20:14:26,546 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-04 20:16:52,812 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-04 20:18:26,625 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-04 20:30:39,609 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'

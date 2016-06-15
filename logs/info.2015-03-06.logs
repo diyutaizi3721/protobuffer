@@ -1,0 +1,15 @@
+2015-03-06 09:48:47,453 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-06 09:48:47,656 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-06 09:48:47,859 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-06 11:19:04,218 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-06 11:19:04,421 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-06 11:19:04,640 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-06 14:00:11,531 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-06 14:00:11,703 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-06 14:00:11,890 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-06 17:31:32,656 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-06 17:31:32,968 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-06 17:31:33,187 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'
+2015-03-06 17:42:30,265 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-06 17:42:30,468 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-06 17:42:30,640 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'

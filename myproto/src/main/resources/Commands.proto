@@ -1,0 +1,1779 @@
+package com.bhan.proto;
+
+//user_friend
+message UserViewInfo{
+	required int64 userId = 1;
+	required string headUrl = 2;
+	required string name = 3;
+	required string email = 4;
+	required string mobile = 5;
+	required int32 status = 6;
+	required int32 money = 7;
+	required int64 createTime = 8;//130205 todo:delete
+	required int64 loginTime = 9;//130205 todo:delete
+	optional bool isNameChanged = 10;
+}
+
+message Reward {
+	optional int32 rmb = 1;
+	optional int32 money = 2;
+	optional int32 rpNum = 3;
+	optional int32 mostwantedNum = 4;
+	optional string displayStrings = 5;
+	optional int32 energy = 6;
+
+	optional FragData farginfo = 7; //yangmingxing 2014-3-4
+	optional string rewardname = 8;
+	optional int32 score = 9;
+	
+}
+
+//yangmingxing 2014-3-4
+message FragData
+{
+	required int32 fragId = 1;
+	required string name = 2;
+	repeated string carid = 3;
+	required int32 number = 4 ;
+	
+	
+	optional int32 buyPriceType = 5; //1-rmb 2-currency
+	optional int32  buyPrice = 6;
+	
+	optional int32 sellPriceType = 7; //1-rmb 2-currency
+	optional int32  sellPrice = 8;
+	
+	required int32 type =9 ; // 1-normal 2-wanneng
+	
+	optional string tip = 10 ;
+}
+
+message Leaderboard {
+	required string name = 1;
+	required float raceResult = 2;
+	optional int32 headIndex = 3;
+	optional string headUrl = 4;
+	optional int32 rank = 5;
+	optional bool isMyself = 6;
+	optional int64 userId = 7;
+}
+message LeaderboardProfile {
+	required string name = 1;
+	required float raceResult = 2;
+	optional int32 headIndex = 3;
+	optional string headUrl = 4;
+	optional int32 rank = 5;
+	optional bool isMyself = 6;
+	optional string carID = 7;
+	optional int32 carColorIndex = 8;
+	repeated int32 carModType = 9;
+	repeated float carModValue = 10;
+	optional int32 carScore = 11;
+	repeated int32 carModId = 12;
+	repeated int32 carModLevel = 13;
+	optional int64 userid = 14;
+}
+
+message RaceTaskInformation
+{
+	required int32 taskID = 1;
+	required int32 taskType = 2;
+	required string taskDescription = 3;
+	required string taskTitle = 4;
+	required bool isFinish = 5;
+	required int32 taskIconIndex = 6;
+	
+	optional Reward taskReward = 7;
+	optional bool finishedBefore = 8;
+	
+	required float value = 9;	// 根据任务的不同，数值有不同意义
+}
+
+message ModeInfo {
+	required int32 modeId = 1;
+	required string modeName = 2;
+	required bool isNew = 3;
+	optional int32 realTrackIndex = 4;//130205 todo:change optional to required
+	optional float personalBestTime = 5;
+	repeated RaceTaskInformation taskCondition = 6;
+	required bool isLocked = 7;
+	required int32 energyCost = 8;
+}
+
+message TrackInfo {
+  	required string trackId = 1;
+  	required int32 finishRatio = 2;
+  	repeated int32 carTypes = 3;
+  	required int32 difficulty = 4; //star //130205 todo:change name to star
+  	required bool unlock = 5;  
+  	optional int32 userMostwantedNum = 6;//130205 todo:change name to unlockStarNum
+  	optional bool isNew = 7;//130205 todo:change optional to required
+  	repeated ModeInfo modes = 8;
+  	required string trackName = 9;
+	optional string carTypeForDisplay = 10;//130205 todo:change optional to required
+	optional bool trackStatusUpdated = 11;//130205 todo:change optional to required
+	optional Reward reward = 12;//130205 todo:change optional to required
+	optional bool isHasNewMode = 13;//130205 todo:delete
+	optional string displayName = 14;//130205 todo:delete
+	
+	required Reward nextReward = 15;
+}
+
+message TournamentModeInfo {
+	required int32 tournamentID = 1;
+	required int32 modeId = 2;
+	required int32 type = 3;	// 1:积分赛 2:热力试驾 3:锦标赛 4:任务赛
+	optional int32 realTrackIndex = 4;//130205 todo:change optional to required
+	repeated RaceTaskInformation taskCondition = 5;
+	required bool isStart = 6;
+	required int32 energyCost = 7;
+	required int32 leftTimeStart = 8;
+	required int32 leftTimeEnd = 9;
+	optional int32 rank = 10;
+	optional int32 score = 11;
+	optional string carID = 12;
+	optional float personalBestTime = 13;
+	optional int32 maxRunAmount = 14;
+	optional int32 leftRunAmount = 15;
+	
+}
+
+message TournamentTrackInfo {
+	required string tournamentTrackID = 1;
+	required string trackName = 2;
+	repeated TournamentModeInfo modes = 3;
+	optional string displayName = 4;//130205 todo:delete
+}
+
+message NewbieTierCheckList {
+	required string text = 1;
+	required bool isFinished = 2;
+}
+
+message GPSInfo {
+  	required double latitude = 1;
+  	required double longitude = 2;
+  	required string country = 3;
+  	required string locality = 4;
+  	required string subLocality = 5;
+  	required string thoroughfare = 6;
+  	required string subThoroughfare = 7;
+}
+
+// request server url
+message RequestServerUrl
+{
+}
+
+message serverInfo
+{
+	required string serverUrl = 1;
+	required string type = 2;
+}
+
+message ResponseServerUrl
+{
+	repeated serverInfo infos = 1;
+}
+
+// patch
+//resource_start
+message RequestResourceCommand {
+	required int32 clientVersion = 1;
+	optional int32 channelID = 2;
+}
+
+message ResourceItemInfo  {
+	required string path = 1;//not have http://nfsmw.ea.com.cn/mwtdlc/1
+	required int32 size = 2;
+	required string md5 = 3;
+	required int32 action = 4;//1:update
+	optional int32 version = 5;
+}
+
+message ResponseResourceCommand {
+	required string rootPath = 1;//like: http://nfsmw.ea.com.cn/mwtdlc/1
+	required int32 version = 2;
+	repeated ResourceItemInfo items = 3;
+}
+//resource_end
+
+// get track mode leaderboard
+message RequestTrackCommand {
+	//required int64 userId = 1;
+	required int32 requestTier = 2;
+}
+
+message RequestTrackInfoCommand {
+	required string trackID = 1;
+}
+
+message ResponseTrackCommand 
+{
+   optional int32 lastRaceArea = 1;
+	
+	repeated TrackInfo tracks = 2;
+	
+	repeated TournamentTrackInfo tournamentTracks = 3;
+}
+//login cmd
+message RequestUserInfoCommand {
+  	required string mac = 1;
+  	optional string deviceName = 2; // device type string, will not delete
+  	required string token = 3;
+  	// gps
+  	optional GPSInfo gpsInfo = 4;
+	optional int32 channelID = 5;
+	optional string uuid = 6;
+}
+
+message ResponseWeiboShareLocksCommand{
+	required bool isRaceRewardShareOpen = 1;
+	required bool isTrackUnlockInfoShareOpen = 2;
+	required bool isCarUnlockInfoShareOpen = 3;
+	required bool isSpeedWallShareOpen = 4;
+	required bool isBindingWeiboShareOpen = 5;
+	required bool isTournamentRewardShareOpen = 6;
+	required bool isBuyCarShareOpen = 7;
+	required bool isUpdateConsumableShareOpen = 8;
+	optional bool isJaguarShareOpen = 9;
+}
+
+// sns extend info
+message ResponseSnsSupportInfo{
+	required string serverSuportSns = 1;
+}
+
+message UserWeiboInfo{
+	required string access_token = 1;
+	required string uid = 2;
+}
+
+message UserInfo{
+	required int32 userId = 1;
+	required string nickname = 2;
+	required string headUrl = 3;
+	required int32 headIndex = 4;
+	required int32 rpNum = 5;
+	required int32 mostwantedNum = 6;
+	required int32 currency = 7;
+	required int32 rmb = 8;
+	required int32 energy = 9;
+	repeated AccountInfo accountInfos = 10; // return user certification account list
+	repeated AccountInfo newAccountInfos = 11;
+	optional bool finishedFirstRace = 12;
+	optional UserWeiboInfo weiboInfo = 13;
+	optional bool tutorialRewardIsGiven = 14;
+	optional bool isNameChanged = 15;
+	optional Msg360Info msg360Info = 16;
+	
+}
+
+// modify user info
+message RequestModifyUserInfoCommand { 
+	optional int32 headIndex = 1; // -1 = sina weibo, 0 - x system head icon
+	optional string nickname = 2;
+	optional int32 snsType = 3;
+}
+
+message ResponseModifyUserInfoCommand {
+	optional ErrorCommand result = 1;
+	optional UserInfo userinfo = 2;
+}
+
+message ResponseUserInfoCommand {
+	required UserInfo userInfo = 1;
+	required string token = 2; //user certification , next login use
+	optional string defaultHint = 3;
+    optional int32 canEnter = 4;
+	optional bool loginRewardIsGiven = 5;
+	optional string loginRewardURL = 6;
+}
+
+message GhostInfo {
+	required bool success = 1;
+	required float raceTime = 2;
+	required float averageSpd = 3;
+	required int32 position = 4;
+	required int32 modeId = 5;
+	required string raceEventName = 6;
+	required string carID = 7;
+	required int32 carColorIndex = 8;
+	optional int32 carScore = 9;
+	optional int32 raceResultState = 10;
+	optional string carPrefabFile = 11;
+	optional int32 carTopSpd = 12;
+	optional int32 carMidSpd = 13;
+	optional float trackLength = 14;
+}
+message RacerInfo {
+	required string name = 1;
+	required int32 headIndex = 2;
+	optional string headUrl = 3;
+	required GhostInfo ghost = 4;
+	optional int32 rpLv = 5;
+}
+
+//racer
+message RequestModeInfoCommand {
+	//required int64 userId = 1;
+	required int32 gameMode = 1;//0 - career mode, 1 - tournament mode
+	required int32 modeId = 2;
+	required int32 raceType = 3;//0 - streetRace, 1 - speedRun, 2 - cameraRally, 3 - hotRide, 4 - mostWanted
+	optional int32 tournamentId = 4;
+	required string raceEventName = 5;
+}
+
+message ResponseRacerForGhostCommand {
+	repeated RacerInfo racers = 1;
+	optional int32 ghostAvergeEol = 2;
+}
+
+message ResponseModeInfoCommand {
+	required int32 energyCost = 1;
+	required Reward reward = 2; //event 100% finish reward
+	required string carLimitDisplayString = 3;
+	repeated string acceptableCarIDs = 4;
+	optional int32 currentEnergy = 5;
+	repeated Leaderboard friendLeaderboard = 6;
+	repeated Reward rewards = 7; //1st 2nd 3rd rewards
+	optional int64 userId = 8;
+	repeated RandomEventReward randomEventReward = 9;
+	//optional string fragmentDropTips = 10;
+}
+
+message ResponseTournamentModeInfoCommand 
+{
+	repeated string acceptableCarIDs = 1;
+	repeated Leaderboard leaderboard = 2;
+	repeated Reward rewards = 3; //1st 2nd 3rd rewards
+	repeated  RaceTaskInformation tasks = 5;
+	optional int64 userId = 4;
+}
+
+//race result
+message RequestRaceResultCommand {
+	required int32 gameMode = 1;//0 - career mode, 1 - tournament mode
+	required string trackId = 2;
+	required int32 modeId = 3;//Mask: difficulty number * 10000 | event id, this id is defined by the "AutologID" field in every event prefab xml file.
+	required int32 rank = 4;
+	required GhostInfo ghosts = 5;
+	required int32 raceType = 6;
+	optional int32 ghostAvergeEol = 7;//130205 todo:change optional to required
+	
+	optional UserRaceActionInfo userRaceActionInfo = 8;
+	optional int32 tournamentID = 9;
+}
+
+message UnlockInfoMessage {
+	optional int32 tierUnlocked = 1;
+	optional bool isTrackUnlocked = 2;
+	optional bool isModeUnlocked = 3;
+	repeated string unlockedCar = 4;
+}
+
+message UpgradeReward {
+	optional int32 money = 1;
+	optional int32 gold = 2;
+	optional int32 gas = 3;
+	optional int32 mw = 4;
+}
+
+message RewardPackage {
+	required int32 id = 1;
+}
+
+message AchieveProgressReward {
+	required int32 finishRatio = 1;
+	required Reward reward = 2;
+	//optional bool hasNovicePackage = 3;
+	
+	optional RewardPackage rewardPackage = 3;
+}
+
+message ResponseRaceResultCommand {
+	required int32 trackFinishRatio = 1;//add %
+	repeated string unlockTracks = 2;
+	repeated int32 unlockModes = 3;
+	optional Reward rewards = 4;
+	optional bool isNewRecord = 5;
+	optional int32 newRank = 6;
+	repeated Leaderboard leaderBoard = 7;
+	optional float personalBestTime = 8;
+	optional int32 bestRank = 9;
+	optional UnlockInfoMessage unlockInfo = 10;
+	repeated Leaderboard friendLeaderboard = 11;
+	
+	repeated RaceTaskInformation taskReward = 12;
+	optional Reward careerRandomReward = 13;
+	
+	optional AchieveProgressReward achieveProgressReward = 14;
+}
+
+message RequestTakeNovicePackage {
+	required int32 rewardPackageID = 1;
+}
+
+message HotRideCarBuy {
+	required string carID = 1;
+	required int32 price = 2;
+	required int32 discountPrice = 3;
+	required float discount = 4;
+}
+
+message ResponseTournamentCarLimit{
+	repeated string carIDs = 1;
+}
+
+message ResponseTournamentRaceResultCommand {
+	optional Reward rewards = 1;
+	optional float tournamentRemainTime = 2;
+	optional int32 tournamentLeftTimes = 3;
+	repeated Leaderboard board = 4;
+    required int32 selfRank = 5;
+	required string selfName = 6;
+	required float selfRaceResult = 7;
+	optional int32 upRank = 8;
+	optional bool isNewRecode = 9;
+	repeated Leaderboard friendLeaderboard = 10;
+	optional int32 tournamentId = 11;
+	optional bool isTournamentOnlineFinish = 12;
+	
+	optional HotRideCarBuy hotrideCarBuyInfo = 13;	// 热力试驾信息
+	optional int32 tournamentScore = 14;		// 积分赛的名次积分奖励
+	optional int32 tournamentTaskScore = 15;	// 积分赛的任务积分奖励
+	optional int32 tournamentVIPScore = 16;		// 积分赛的VIP积分奖励
+	repeated RaceTaskInformation taskReward = 17;	// 完成任务
+	repeated TournamentDetailMessage leaderboard = 18;	// 锦标赛排行榜
+	optional float tournamentBestResult = 19;			// 锦标赛最佳成绩
+	optional float tournamentCurrentResult = 20;		// 锦标赛当前成绩
+}
+
+/* tournament_start */
+//t dict
+message TournamentMessage {
+	required int32 type = 1;
+	required string name = 2;
+	optional int64 startTime = 3;
+	optional int64 remainTime = 4;
+	optional int32 signUpType = 5;//1 - rmb; 2 - money
+ 	optional int32 signUp = 6;
+	repeated TournamentRankingListMessage rankList = 7;
+	optional int32 rankingHighLight = 13;
+	repeated TournamentRewardListMessage rewardList = 14;
+	optional int32 leftTimes = 17;
+	required string id = 18;
+	required int32 energy = 22;
+	required int32 onlineId =23;
+	required int32 eventId = 24;//autologId
+	optional int32 signUpPrice = 25;
+	optional string backgroundPictureId = 26;
+	optional int32 adId = 27;
+	optional bool isAlreadyGetReward = 28;
+	optional string tournamentGroup = 29;
+	optional string tournamentCarName = 30;
+}
+
+message TournamentRankingListMessage{
+	required string rank = 1;
+	required string name = 2;
+}
+
+message TournamentRewardListMessage{
+	required string num = 1;
+	required string name = 2;
+}
+
+message TournamentRewardDetailMessage {
+	required int32 rank = 1;
+	required string name = 2;
+	required float raceTime = 3;
+	required string reward = 4;
+	required int32 headIndex = 5;
+	optional string headUrl = 6;
+	optional string displayName = 7;
+}
+//t user info
+message TournamentDetailMessage {
+	required int32 rank = 1;
+	required string name = 2;
+	required float value = 3;
+	required int32 headIndex = 4;
+	optional string headUrl = 5;
+	optional int64 userId = 6;
+	optional bool isMyself = 7;
+}
+
+message TournamentDetailRewardMessage {
+	required string title = 1;
+	optional string money = 2;
+	optional string rmb = 3;
+	optional string displayName = 4;
+}
+
+//
+message RequestTournamentRewardDetailCommand {
+	//required int64 userId = 1;
+	required int32 tournamentOnlineId = 2;
+}
+message ResponseTournamentRewardDetailCommand {
+	repeated TournamentRewardDetailMessage rewardDetail = 1;
+	optional int32 selfRank = 2;
+	optional string selfName = 3;
+	optional float selfRaceTime = 4;
+	optional string selfReward = 5;
+	optional int32 selfHeadIndex = 6;
+	optional string selfHeadUrl = 7;
+	required string tournamentName = 8;
+	optional string info = 9;
+	repeated Leaderboard friendLeaderboard = 10;
+}
+
+message responseTournamentRewardCommand {
+	required int32 rank = 1;
+	optional string money = 2;
+	optional int32 moneyIconId = 3; 
+	optional string rmb = 4;
+	optional int32 goldIconId = 5; 
+	optional string displayName = 6;
+	optional bool isGet = 7;
+}
+//
+
+message RequestGetRewardCommand {
+	//required int64 userId = 1;
+	required int32 tournamentOnlineId = 2;
+}
+
+message ResponseGetRewardCommand {
+	//required int64 userId = 1;
+	required int32 success = 2;
+	optional string errorMessage = 3;
+}
+
+//tournament_end 
+
+// command common head
+message HeadInfo 
+{
+	required int32 version = 1;		//  0: version1.1.1 1: version1.2.0 2013-3-28
+	required int64 datetime = 2;
+	required string session = 4;
+	required int32 gameVersion = 5;
+}
+
+// race start request
+message RequestRaceStartCommand{
+	required int32 modeId = 1;
+	required int32 gameMode = 2; 
+	optional int32 raceType = 3;
+	optional int32 tournamentId = 4;
+	optional string carId = 5;
+}
+
+message ResponseRaceStartCommand{
+	required bool approved = 1;
+	optional int32 status = 3;	// 1 is leaking for energy, 2 is leaking for money,3 is wrong car,4 is leaking for times ,5 is leaking for gold
+	optional string hint = 4;
+	optional int32 samplePeriod =5;
+	 
+	optional string weiboContent = 6;
+	repeated TournamentDetailMessage leaderboard = 7;
+	optional string weiboShareContent = 8;
+	repeated Reward tournamentReward = 9;
+	repeated Reward raceReward = 10;
+	repeated RaceTaskInformation taskCondition = 11;
+	optional string rlsjCarPerformence = 12;
+}
+
+// user login account list,device & binding 3party account,used in userinfo
+message AccountInfo{
+	required int32 type = 1;
+	required string name = 2;
+	optional string headUrl = 3;
+	optional bool isExpired = 4;
+	optional string access_token = 5;
+	optional string uid = 6;
+}
+
+//binding workflow
+// equals binding weibo cmd
+message RequestBindingStartCommand{
+	required string token = 1;
+	optional int32 type = 2;
+}
+message ResponseBindingStartCommand{
+	required string authUrl = 1;
+	optional string closeUrl = 2;
+	optional int32 type = 3;
+}
+
+message RequestBindingResultCommand{
+	required string token = 1;
+	optional int32 type = 2;
+}
+message ResponseBindingResultCommand{
+	required bool isBinding = 1;
+	//required bool needConfirm = 2;
+	optional ResponseBindingConfirmCommand bindingConfirmCommand = 3;
+	optional UserInfo userInfo = 4;  //wrap a bean, if bind failed : no old data
+	optional int32 type = 5;
+}
+
+// channel response info, such as 360
+message ResponseChannelBindingResultCommand{
+	required bool isBinding = 1;
+	//required bool needConfirm = 2;
+	required int32 channelID = 3;
+	optional ResponseBindingConfirmCommand bindingConfirmCommand = 4;
+	optional UserInfo userInfo = 5;  //wrap a bean, if bind failed : no old data
+}
+
+message RequestBindingConfirmCommand{
+	required bool isOverride = 1;
+	required string token = 2;
+	optional int32 overrideWhichUser = 3;
+}
+message ResponseBindingConfirmCommand{
+	required string token = 1;
+}
+
+// 360
+message Msg360BindingParam{
+	required string code = 1;
+}
+
+message Msg360Info{
+	required string access_token = 1;
+	required string name = 2;
+}
+
+// channal binding
+message RequestBindingChannelStartCommand{
+	required int32 type = 1;
+	required string token = 2;
+	optional Msg360BindingParam channel360 = 3;
+}
+
+
+//need popup binding window cmd
+message ResponseBindingPopupCommand{
+	required bool isPopup = 1;
+}
+//error cmd
+message ErrorCommand{
+	required string code = 1;
+	required string message = 2;
+}
+
+
+/*** garage cmd ***/
+
+message CarPartInfo{
+required int32  partId = 1; //sn：1=发动机，2=变速箱，3=轮胎，4=排气管
+	required string partName = 2;
+	required string partTip = 3;
+	required string description = 4;
+	required int32  level = 5;
+	required float value = 6;
+	required int32 nextLevelNeedFragCount = 7;
+	required int32 upgradeCostType = 8;
+	required int32 nextLevelNeedCost = 9;
+	required float nextLevelValue = 10;
+	required int32 currentLevelScore = 11;
+	required int32 nextLevelScore = 12;
+	required bool isUpgradeTopLevel = 13;
+    
+
+}
+
+/*** garage cmd ***/
+
+message CarData{
+	required string  carId = 1;
+	required int32 carClass = 2; //种类suv  sport
+	required int32 carType = 3; // vip nw
+	required int32 score = 4;
+	required int32 priceType = 5;//1-rmb  2-currency 
+	required int32 price = 6;//解锁所需金币数
+	required int32 unlockMWLevel = 7;//碎片解锁所需mw值
+	required int32 chartletId = 8; //current chart
+	optional bool isLock = 9;
+	repeated ChartletInfo chartletInfos = 10;
+	optional int32 flagId = 11;//han yi
+	optional int32 totalFragmentNumber = 12;//碎片购买需要碎片数	
+	required int32 topSpeed = 13; // 最高速度
+	required int32 acceleration = 14; //加速度
+	required int32 nitrousSpeed = 15; //氮气速度
+	required int32 track = 16;//抓地性
+	required int32 carQuality = 17;//车辆品质 1=原厂级，2=街头级，3=专家级                  
+	repeated CarPartInfo carPartInfo = 18;
+	required int32 upgradeCostType = 19;//1-rmb  2-currency 
+	required int32 nextLevelNeedCost = 20;//sheng ji che liang pin zhi jia ge 
+	required int32 autoPrice=21;
+	optional string trackIds=22;
+}
+
+message GotchaExpense{
+	required int32 level = 1;
+	required int32 price = 2;
+	required int32 priceType = 3;
+	required int32 leftFreeTimes = 4;
+}
+
+
+
+
+
+message ChartletSubsidiaryFeature{
+	required int32 type = 1;
+	required string featureMessage = 2;
+}
+
+message ChartletInfo{
+   	required string name = 1;
+   	required string diffuseTexturePath = 2;
+   	required string diffuseMaskPath = 3;
+   	required string BRDFPath = 4;
+   	required string BRDFSpecularPath = 5;
+   	required string numberPlatePath = 6;
+   	required int64 swatchColor = 7;
+   	required int64 swatchColor2 = 8;
+   	required int32 paintType = 9;
+   	required bool useVinylMap = 10;
+   	required int32 priceType = 11;
+   	required int32 price = 12;
+   	required int64 tenancy = 13;//total time of the rent contract
+   	required bool owned = 14;
+   	required int64 remainTime = 15;//remain time of player's contract
+   	required int32 id = 16;  //dict chartlet id
+	optional int32 sellFlag = 17;
+	optional int32 orderId = 18;
+	optional int32 score = 19;
+	optional ChartletSubsidiaryFeature subsididaryFeature = 20; 
+}
+message CarSlotInfo{
+	required int32 slotId = 1;
+	required int32 level = 2;
+	required bool reachMaxLevel = 3;
+	required int32 status = 4;//0-unloclk 1-own 2-locked
+	optional int32 remainTime = 5;
+	required int32 score = 6;
+	required int32 priceType = 7;//1-rmb  2-currency
+	required int32 price = 8;
+	required string description = 9;
+	repeated ConsumableData consumble = 10;
+	optional int32 nextAddScore = 11;
+	
+	optional int32 remainPrice = 13;
+	optional int32 needFragmentNumber = 14;
+}
+
+message ConsumableData{
+	required int32 type = 1;
+	required float ratio = 2;
+	required int32 priceType = 3;
+	required int32 price = 4 ;
+}
+
+//get car list show
+message RequestGarageCommand{
+}
+message ResponseGarageCommand{
+	repeated CarData carDatas = 1;
+}
+//buy car
+message RequestBuyCarCommand{
+	required string carId = 1;
+	required bool useFrag = 2;
+	optional bool buydiscountcar = 3;
+}
+message ResponseBuyCarCommand{
+	required bool success = 1;
+	required string message = 2;
+}
+message RequestCarDataCommand{
+	required string carId = 1;
+}
+message ResponseCarDataCommand{
+	required CarData carData = 1;
+}
+
+// use or buy or change chartlet
+message RequestUseChartletCommand{
+	required int32 chartletId = 1;
+	required string carId = 2;   //dict car id
+}
+message ResponseUseChartletCommand{
+	required bool success = 1;
+	required string message = 2;
+}
+
+message ResponseFeedCommand{
+	repeated string feedContent = 1;
+}
+
+//store
+message ItemMessage{
+	required string name = 1;
+	required int32 priceType = 2;
+	required float price = 3;
+	required bool discount = 4;
+	required string discountNum = 5;
+	required float discountPrice = 6;
+	required int32 buyCount = 7;
+	required int64 buyTimeLimit = 8;
+	required int32 itemType = 9;
+	required int32 itemId = 10;
+	optional int32 sellFlag = 11;
+	optional int32 itemDiscount = 12;
+}
+
+message RequestStoreDetailCommand{
+}
+
+message ResponseStoreDetailCommand{
+	repeated ItemMessage items = 1;
+}
+
+message RequestBuyItemCommand{
+	required int32 itemId = 1;
+}
+
+message ResponseBuyItemCommand{
+	required bool success = 1;
+	optional string message = 2;
+}
+// system command
+message RequestSystemCommand{
+	enum SystemConfigType {
+		UserLanguage = 0;
+		SynergyUID = 1;
+	}
+	required SystemConfigType type = 1;
+	required string content = 2;
+}
+message ResponseSystemCommand{
+	repeated EventOptionMessage EventOption = 1;
+	repeated int32 CtaParam = 2;
+	optional string messageUrl = 3;
+	repeated float speedFactor = 4;
+	optional string IPSPFailedMessageUrl = 5;
+	optional string rentJaguarUrl = 6;
+	optional string getJaguarUrl = 7;
+	optional string jaguarInfoUrl = 8;
+	repeated string servers = 9;
+	optional bool popMOD = 10;
+	optional int32 energyRecoveringStartTime = 11;
+	optional int32 energyRecoveringPeriod = 12;
+	optional int32 energyRecoveringNum = 13;
+	optional int32 ipspPurchaseItemCallBackType = 14;
+	optional int32 energyMaxNum=15;
+	optional int32 newMOD=16;
+	optional bool isSupportTapjoy = 17;
+	optional string eventActivityURL = 18;
+	
+	optional bool isSupportedIPSP = 19;
+	
+	optional string announcementURL = 20;
+}
+
+message RequestFeaturesSwitchCommand{
+}
+
+message ResponseFeaturesSwitchCommand{
+	optional bool isOpenChartletSubsidiaryFeature = 1;
+	optional bool isOpenDisposalOfFragmentFeature = 2;
+	optional bool isShowNewRanklist = 3;
+	optional bool isOpenCustomizableGotchaFeature = 4;
+}
+
+message EventOptionMessage{
+	optional CashRewardMessage cashReward = 1;
+	optional OpponentCollectionMessage opponentCollection = 2;
+	optional RaceEventMessage raceEvent = 3;
+	optional TrafficFlowMessage trafficFlow = 4;
+//	optional TrafficCarSpawnDescsMessage trafficCarSpawnDescs= 5;
+	required int32 modeId = 5;
+	optional MedalPositionMessage MedalPosition = 6;
+	required string FileName = 7;
+	optional MedalScoreMessage MedalScore = 8;
+	optional MedalTimeMessage MedalTime = 9;
+	optional CountdownInitialTimeMessage InitialTime = 10;
+	optional PenaltyTimeMessage PenaltyTime = 11;
+	
+}
+
+message CashRewardMessage{
+	optional int32 bronze = 1;
+	optional int32 silver = 2;
+	optional int32 gold = 3 ;
+}
+
+message MedalPositionMessage{
+	optional int32 PositionBronze = 1;
+	optional int32 PositionSilver = 2;
+	optional int32 PositionGold = 3 ;
+}
+
+message MedalScoreMessage{
+	optional int32 ScoreBronze = 1;
+	optional int32 ScoreSilver = 2;
+	optional int32 ScoreGold = 3 ;
+}
+
+message MedalTimeMessage{
+	optional float TimeBronze = 1;
+	optional float TimeSilver = 2;
+	optional float TimeGold = 3 ;
+}
+
+message CountdownInitialTimeMessage{
+	optional float InitialTime = 1;
+}
+
+message PenaltyTimeMessage{
+	optional float MaximumTime = 1;
+}
+
+message OpponentCollectionMessage{
+	repeated OpponentMessage opponent = 1;
+}
+
+message OpponentMessage{
+	optional string driverName = 1;
+	optional string carDescriptionName = 2;
+	optional int32 colourIndex = 3;
+	optional bool stationary = 4;
+	optional AiSettingsMessage aiSettings =5;
+}
+
+message AiSettingsMessage{
+	optional float speedFactor = 1;
+	optional float corneringFactor = 2;
+	optional float racingLineScale = 3;
+	optional int32 rubberBandingTweaksToUse = 4;
+	optional float rubberBandingDifficulty = 5;
+	optional float rubberBandingTargetDifficulty = 6;
+	optional float pathfindingSkill = 7;
+	optional float nitroSkill = 8;
+	optional float maxHealth = 9;
+}
+
+message RaceEventMessage{
+	optional string raceType = 1;
+	optional string raceFSMPrefabOverride = 2;
+	optional string carRestriction = 3;
+	optional string trackName = 4;
+	optional string name = 5;
+	optional string location = 6;
+	optional bool blacklistEvent =7;
+	optional int32 classRestriction = 8;
+	optional string environmentPrefab = 9;
+	optional int32 trafficCarCount = 10;
+	optional bool openWorldTrack = 11;
+	optional int32 autoLogId = 12;
+	optional string pursuitType = 13;
+	optional float startLineNoSpawnZone = 14;
+	optional float finishLineNoSpawnZone = 15;
+	optional float spawnDistance = 16;
+	optional string	startLine = 17;
+	optional string finishLine = 18;
+	optional string endOfTrack = 19;
+	optional string checkpointCollection = 20;
+}
+
+message TrafficFlowMessage{
+	optional int32 maxIncomingCarsOverride = 1;
+	optional int32 maxOutcomingCarsOverride = 2;
+	optional float outgoingLightMinDistance = 3;
+	optional float outgoingLightMaxDistance = 4;
+	optional float outgoingHeavyMinDistance = 5;
+	optional float outgoingHeavyMaxDistance = 6;
+	optional float incomingLightMinDistance = 7;
+	optional float incomingLightMaxDistance = 8;
+	optional float incomingHeavyMinDistance = 9;
+	optional float incomingHeavyMaxDistance = 10;
+	optional float intialNoTrafficDistance = 11;
+	repeated RaceTrafficCongestionMessage raceTrafficCongestion = 12;
+	optional TrafficCarSpawnDescsMessage trfficCarSpawnDescs = 13;	
+}
+
+message RaceTrafficCongestionMessage{
+	optional float raceCompletetionFactor = 1;
+	optional float outgoingTrafficCongestionFactor = 2;
+	optional float oncomingTrafficCongestionFactor = 3;
+}
+
+message TrafficCarSpawnDescsMessage{
+	repeated string prefabld = 1;
+}
+
+//jaguar
+message RequestRegistJaguarCommand{
+    	required int32 jaguarType = 1; // 0-use in level race 1-give jaguar to user
+}
+message ResponseRegistJaguarCommand{
+    	required bool levelRaceCanUse = 1;
+}
+
+
+// profile start
+message ProfileCarInfo{
+	required int64 userCarId = 1;// for like
+	required string carId = 2;
+	repeated int32 slotLevel = 3;// level from 1 to 3
+	required int32 carPaintJobIndex = 4;
+	required int32 carScore = 5;
+	required int64 likeNum = 6;
+	required bool canLike = 7;
+}
+
+message RequestProfileUserDataCommand{
+	required int64 profileId = 1;
+	required int32 sourceTypeId = 2;
+	required int32 tournamentOnlineId = 3;
+	required int32 tournamentGroupId = 4;
+}
+
+message ResponseProfileUserDataCommand{
+	required string nickname = 1;
+	required string headUrl = 2;
+	required int32 headIndex = 3;
+	required int32 mostwantedNum = 4;
+	required int32 carNum = 5;
+	required int32 garageScore = 6;
+	required bool canReport = 7;
+	optional ProfileCarInfo carInfo = 8;
+	repeated string ownedCarId = 9;// all the owned car id
+	repeated int64 ownedUserCarId = 10;// the same as carId
+}
+
+message RequestProfileNextCarCommand{
+	required int64 userCarId = 1;
+}
+message ResponseProfileNextCarCommand{
+	required ProfileCarInfo carInfo = 1;
+}
+message RequestProfileLikeCommand{
+	required int64 userCarId = 1;
+}
+message ResponseProfileLikeCommand{
+	required int64 likeNum = 1;
+}
+message RequestProfileReportCommand{
+	required int64 profileId = 1;
+}
+message ResponseProfileReportCommand{
+}
+message UserVSProfile{
+	required string titleStr = 1;
+	required int32 playerValue = 2;
+	required int32 ghostValue = 3;
+	required bool hasProgressBar = 4;
+	required string subTitleStr = 5;
+	required string unitsStr = 6;
+	required int32 valueType = 7;// 0: normal; 1: distance
+}
+message RequestProfileVSCommand{
+	required int64 profileId = 1;
+}
+message ResponseProfileVSCommand{
+	repeated UserVSProfile vsData = 1;
+}
+
+message UserRaceActionInfo{
+	required int32 copsKill = 1;
+	required int32 consumable = 2;
+	required int32 drift = 3;
+	required int32 jump = 4;
+	required int32 billBoard = 5;
+	
+	optional float maxFirstPositionTime = 6;	// 保持第一的最长时间
+	optional float minBeFirstPosTime = 7;		// 第一次获得第一名的时间
+	optional float maxBeFirstPosTime = 8;		// 最后一次获得第一名的时间
+	optional float exceedSecondPosDistance = 9;		// 超出第二名的距离
+	
+	optional int32 crashAmount = 10;			// 撞击次数
+	
+	optional float maxDriftDistance = 11;		// 最大漂移量
+	optional float maxAirborneDistance = 12;	// 最大飞跃量
+	optional float maxSpeed = 13;				// 最大速度
+	optional float nitroTime = 14;				// 氮气时间
+	optional float heathPercent = 15;			// 剩余生命值/该车总生命值
+	
+	optional int32 comsumePropsCount = 16;		// 使用道具次数
+	
+	optional float averageSpeed = 17;			// 平均速度
+}
+
+// quick race
+message RequestQuickRaceCommand{
+}
+
+// quick race end
+
+//notification start
+message ResponseNotificationCommand{
+	required int32 iconId = 1;
+	required float duration = 2;
+	required string content = 3;
+	
+}
+//notification end
+
+//raceTrack start
+message RequestGhostRecordCommand{
+	required int32 modeId = 1;
+	required float raceTime = 2;
+	required string carId = 3;
+	repeated int32 carModType =4;
+	repeated float carModValue = 5;
+	repeated int32 carModLevel = 6;
+	repeated int32 carModId =7;
+	required int32 samplePeriod =8;
+	repeated float sampleData = 9;
+}
+
+message ResponseGhostRecordCommand{
+	required bool success = 1;
+	optional string message = 2;
+}
+//raceTrack end
+
+
+
+// request command list transfer only use it
+//buy gold
+message RequestIapCheckCommand{
+
+	required string receiptData = 1;
+	optional int32 ipspPurchaseItemCallBackType = 2;
+}
+message ResponseIapCheckCommand{
+	required bool success = 1;
+	optional string message = 2;
+}
+
+message ResponseTournamentNotificationCommand{
+	repeated string message = 1;
+}
+
+message RequestTutorialRewardCommand{
+	required bool finishedAllTutorial = 1;
+}
+message ResponseTutorialRewardCommand{
+	required bool success = 1;
+	optional Reward reward = 2;
+}
+
+message ResponsePopupCommand{
+	required int32 popScreen = 1;//1. main menu; 2. career world map;
+	optional string flowID = 2;
+	required string text = 3;
+	optional string heading = 4;
+	optional string yesButtonID = 5;
+	optional string noButtonID = 6;
+}
+
+message ResponseTournamentRewardNumCommand{
+	required int32 rewardNum = 1;
+	repeated int32 endTime = 2;
+}
+
+message GotchaItemInfo{
+	required int32 type = 1;
+	required string name = 2;
+	required int32 number = 3;
+
+//	optional string fragID = 4; //yangmingxing 2014-3-4
+	optional FragData fragInfo = 5; //yangmingxing 2014-3-4
+}
+
+
+message RequestCheatInfoCommand{
+	required int32 CheatType = 1;
+	//for the car config file cheat prevention
+	optional string CarConfigName = 2;
+	optional int32 MidGearSpd = 3;
+	optional int32 TopGearSpd = 4;
+	//for the exe file cheat prevention
+	optional string ExeFileMD5 = 5;
+	optional string UserSelectCarID = 6;
+	optional string salt = 7; 
+	
+}
+
+// new dynamic leaderboard
+message LeaderboardClass{
+	required int32 id = 1;			// 0: default leaderboard, rp?
+	required string name = 2;
+	required int32 type = 3;		// template type,0:default  1:rp
+}
+
+message LeaderboardItem{
+	required int32 rank = 1;
+	required string name = 2;
+	required int64 userId = 3;
+	required int32 headIndex = 4;
+	optional string headUrl = 5;
+	optional string text = 6;			// for other leaderboard
+	optional int32 rpNum = 7;			// for rp leaderboard
+	optional bool isMyself = 8;
+}
+
+message RequestLeaderboardClass{
+}
+
+message ResponseLeaderboardClass{
+	repeated LeaderboardClass clases = 1;	
+}
+
+message LeaderboardHeadInfo{
+	required int32 classId = 1;
+	required int32 tier = 2;			// 0: all, 1-4: T1-4
+	required int32 range = 3;			// 0: world, 1: friends, 2: recent raced
+}
+message RequestLeaderboard{
+	required LeaderboardHeadInfo info = 1;
+}
+
+message ResponseLeaderboard{
+	required LeaderboardHeadInfo info = 1;
+	repeated LeaderboardItem items = 2;
+}
+
+//luoHai 2014.05.08
+message RequestTournamentScoreRankList{
+	required int32 TournamentID = 1;
+}
+message ResponseTournamentScoreRankList{
+	repeated TournamentDetailMessage  allRankplayer = 1;
+}
+
+
+message RequestTournamentNum{
+	
+}
+
+message ResponseTournamentNum{
+	required int32 rewardNum=1;
+}
+
+// android payment 2013-5-29
+message RequestStoreItems{
+    required string channelID = 1;
+}
+
+// ios payment 2014-3-10
+message RequestIOSStoreItems{
+    required string country = 1;
+}
+
+message StoreItemInfo{
+    required int32 sellID = 1;
+    required string titile = 2;
+    required string description = 3;
+    required int32 value = 4;
+    required string price = 5;
+	
+	optional string appStoreId = 6;
+	optional int32 iconIndex = 7;
+	optional string currencySymbol = 8;
+	optional int32 discount = 9;
+}
+
+message ResponseStoreItems{
+    required bool recharge = 1;
+    repeated StoreItemInfo storeItems = 2;
+}
+
+message RequestPaymentURL{
+    required int32 sellID = 1;
+    required string channalID = 2;
+	required int32 type = 3;	//1：商品 2：礼包
+}
+
+message ResponsePaymentURL{
+    required string orderID = 1;
+    required string url = 2;
+}
+
+message RequestPaymentState{
+    required string orderID = 1;
+}
+
+//message FragmentSellInfo //yangmingxing 2014-3-4
+//{
+//	optional int32 money = 1;
+//	optional int32 rmb = 2;
+//}
+
+message RequestSellFragment{
+	required string carid = 1;
+	required int32 fragmentNumber = 2;
+}
+
+message ResponsePaymentState{
+    required int32 paymentState = 1;
+    required string message = 2;
+}
+
+message ResponseGameConfig{
+    optional bool enableRpMessageBox = 1;
+	optional int32 maxEnergyNumb = 2;
+}
+
+//new gatcha gatchaInfo
+message RequestGatchaInfo{
+
+}
+
+message ResponseGatchaInfo{
+	required GatchaInfo normalGatcha = 1;
+	required GatchaInfo seniorGatcha = 2;
+}
+
+message GatchaInfo{
+	required int32 remain = 1; 
+	required int32 colddown = 2; //colddown time
+	required int32 needGold = 3; // needGold
+	optional string title = 4;
+	required int32 maxtimes = 5;
+}
+
+message RequestGatcha{
+	required int32 type = 1; // 1 normal 2 senior
+	required int32 isUseGold = 2; // 0 free 1 useGold
+}
+
+message ResponseGatcha{
+	required bool success = 1; // 0 success 2 fail
+	optional string message = 2; // errorMsg
+	repeated GotchaItemInfo gotchaItems = 3;
+}
+message ResponseGatchaTimes{
+	required int32 times = 1;
+}
+
+message ResponseRandomEventAlarm{
+	required int32 time = 1;
+	required string content = 2;
+}
+
+message RandomEventReward{
+	required string title = 1;
+	required string content = 2;
+}
+
+message RequestTapJoyInfo{
+}
+
+// save & load
+message LocalUserinfo {
+	required int32 snsFlag = 1;
+	optional string session = 2;
+	required string token = 3;
+	repeated string serverUrl = 4;
+}
+
+message TutorialTaskInfo{
+    required int32 id = 1;
+	optional string title = 2;
+	optional string content = 3;
+	optional Reward reward = 4;
+	optional string output = 5;
+	optional bool  isSpecial = 6;
+	required int32 taskState = 7;
+	  
+}
+
+message ResponseTutorialInfo{
+    repeated TutorialTaskInfo tutorialTaskInfo = 1;
+}
+
+message RequestTakeTutorialTaskAward {
+}
+
+message RequestSkipTutorial {
+}
+
+message RequestGatherInfo {
+}
+
+message ResponseGatherInfo{
+	repeated GatherData  gatherData = 1;
+}
+
+message GatherData{
+	 required int32 gatherId = 1;
+	 required int32 thumbnailIndex = 2;
+	 required string gatherName = 3;
+	 required int32  reward = 4;
+	 optional int32 freeGatherCount = 5;
+	 optional int32 remainGatherCount = 6;
+	 optional string  message = 7;
+	 optional int32   consumeType = 8;
+	 optional int32   comsumeNumber = 9;
+	 optional int32   coldDown = 10; 
+}
+
+
+message RequestGatherCommand{
+	required int32 gatherId = 1;
+	required bool isFree = 2;
+}
+
+message GatherReward{
+    required int32 rewardType = 1;
+    required int32 rewardNumber = 2;
+	optional FragData fragInfo = 3; //yangmingxing 2014-3-4
+	optional string name = 4;
+	optional int32 carpaintID = 5;
+}
+
+message ResponseGatherCommand{
+    required bool success = 1; 
+	optional string errorMsg = 2;
+	repeated GatherReward gatherReward = 3;
+}
+
+// new leaderboard start 
+message NewLeaderboardClass{
+	required int32 classId = 1;			// 0: default leaderboard, rp?
+	required string name = 2;
+	required int32 type = 3;		// template type,0:  1:all or a week 2:world ,friends or nearer 
+	required int32 tierid = 4; //0:all,1:T1,2:T2...
+}
+
+message NewLeaderboardItem{
+	required int32 rank = 1;
+	required int32 headIndex = 2;
+	optional string headUrl = 3;
+	required string name = 4;
+	required int32 rpNum = 5;
+	optional int64 userId = 6;
+}
+
+message NewLeaderboardHeadInfo{
+	required int32 classId = 1;         // 0:rp , 1:
+	required int32 tier = 2;			// 0: all, 1-4: T1-4
+	required int32 classId2 =3;        // 0:all , 1: in a week
+	required int32 classId3 = 4;			// 0: world, 1: friends, 2: near
+}
+
+message ResponseNewLeaderboardClass{
+	repeated NewLeaderboardClass classes = 1;	
+}
+
+
+message RequestNewLeaderboard{
+	required NewLeaderboardHeadInfo info = 1;
+}
+
+message NewLeaderboardInfo{
+	required NewLeaderboardHeadInfo info = 1;
+	repeated NewLeaderboardItem rpLeaderboard = 2;
+	required int32 selfRank = 3;
+	required int32 selfHeadIndex = 4;
+	optional string selfHeadUrl = 5;
+	required string selfName = 6;
+	required int32 selfRpNum = 7;
+}
+message ResponseNewLeaderboard{
+	repeated NewLeaderboardInfo newLeaderboardinfo = 1;
+}
+
+message ResponseFragData
+{
+	repeated FragData frags = 1;
+}
+
+// new leaderboard end
+
+message ResponseDisabledAppList
+{
+	repeated string app = 1; 
+}
+
+message ResponseLibFileCheckInfoCommand
+{
+	required string status = 1; 
+	required string salt = 2; 
+}
+
+
+message RequestUpgradeCarCommand
+{
+	required string carId = 1;  
+	optional bool isAutoUpgrade=2;
+}
+
+
+message RequestUpgradeCarPartCommand
+{
+	required string carId = 1;  
+	required int32 carPartId = 2; 
+}
+
+message ResponseUpgradeCar
+{
+	required int32 result = 1;  
+}
+
+
+message ResponseUpgradeCarPart
+{
+	required int32 result = 1;   
+}
+
+
+
+
+message PropInfo
+{
+	required int32 id = 1; 		// 1-danqi 2-wudi 3-shengming 
+	required float durationTime  = 2;
+	required float coolTime = 3;
+	required int32 goldNumber = 4;
+	optional float parameter = 5;//0~1.0 percentage of  recovering health
+}
+
+message RequestConsumeProp
+{
+	required int32 id = 1;
+}
+
+message ResponseConsumeProp
+{
+	required bool success = 1;
+	required int32 id = 2;
+}
+
+message ResponsePropInfo
+{
+	repeated PropInfo props = 1;
+}
+
+message RequestRefrashUserData
+{
+	required int32 type = 1;
+}
+
+
+message RequestCommand {
+	required HeadInfo head = 1;
+	optional RequestTrackCommand trackCommand = 2;
+	optional RequestUserInfoCommand loginCommand = 3;
+	optional RequestModeInfoCommand ghostCommand = 4;
+	optional RequestRaceResultCommand raceResultCommand = 5;
+	optional RequestTournamentRewardDetailCommand tournamentRewardDetailCommand = 7;
+	optional RequestResourceCommand resourceCommand = 10;
+	//optional RequestBindingWeiboCommand bindingWeiboCommand = 11;
+	//optional RequestGetWeiboUserCommand getWeiboUserCommand = 12;
+	optional RequestRaceStartCommand raceStartCommand = 18;
+	optional RequestBindingStartCommand bindingStartCommand = 19;
+	optional RequestBindingResultCommand bindingResultCommand = 20;
+	optional RequestBindingConfirmCommand bindingConfirmCommand = 21;
+	optional RequestGetRewardCommand getRward = 22; //130205 todo:delete
+	//garage
+	optional RequestGarageCommand garageCommand = 23;
+	optional RequestBuyCarCommand buyCarCommand = 24;
+	optional RequestCarDataCommand carDataCommand = 25;
+	optional RequestUseChartletCommand useChartletCommand = 27;
+	optional RequestModifyUserInfoCommand modifyUserInfoCommand = 28;
+	//store
+	optional RequestStoreDetailCommand storeDetailCommand = 29;
+	optional RequestBuyItemCommand buyItemCommand = 30;
+	//jaguar
+	optional RequestRegistJaguarCommand registJaguar = 31;
+	optional RequestIapCheckCommand IapCheckCommand = 32;
+	
+	optional RequestTutorialRewardCommand tutorialRewardCommand = 33;
+
+	optional RequestGhostRecordCommand ghostRecordCommand = 35;
+	// profile
+	optional RequestProfileUserDataCommand profileUserDataCommand = 37;
+	optional RequestProfileNextCarCommand profileNextCarCommand = 38;
+	optional RequestProfileLikeCommand profileLikeCommand = 39;
+	optional RequestProfileReportCommand profileReportCommand = 40;
+	optional RequestProfileVSCommand profileVSCommand = 41;
+	//cheat prevention
+	optional RequestCheatInfoCommand cheatInfoCommand = 43;
+	optional RequestSystemCommand systemCommand = 45;
+	// new dynamic leaderboard
+	optional RequestLeaderboardClass leaderboardClassCommand = 46;
+	optional RequestLeaderboard leaderboardCommand = 47;
+	optional RequestTournamentNum requestTournamentNum=48;
+    
+    // android payment 2013-5-29
+    optional RequestStoreItems requestStoreItems = 49;
+    optional RequestPaymentURL requestPaymentURL = 50;
+    optional RequestPaymentState requestPaymentState = 51;
+    
+    // quick race
+    optional RequestQuickRaceCommand requestQuickRace = 52;
+	
+	// channel bind
+	optional RequestBindingChannelStartCommand requestBindingChannelStart = 53;
+	
+	//get gatchainfo
+	optional RequestGatchaInfo requestGatchaInfo = 54;
+	
+	//gatchainfo
+	optional RequestGatcha requestGatcha = 55;
+	
+	optional RequestServerUrl requestServerUrl = 56;
+	
+	optional RequestTapJoyInfo requestTapjoyInfo = 57;
+	
+	optional RequestTakeTutorialTaskAward requestTakeTutorialTaskAward = 58;
+	
+	optional RequestSkipTutorial requestSkipTutorial = 59;
+	
+	optional RequestSellFragment sellFragment = 60;
+	
+	optional RequestFeaturesSwitchCommand requestFeaturesSwitchCommand = 61;
+	
+	optional RequestGatherCommand  requestGatherCommand = 62;
+	
+	optional RequestGatherInfo  requestGatherInfo = 63;
+	
+	optional RequestNewLeaderboard  requestNewLeaderboard = 64;
+	
+	optional RequestIOSStoreItems requestIOSStoreItems = 65;
+
+	optional RequestConsumeProp requestConsumeProp = 66;	
+
+	optional RequestUpgradeCarCommand requestUpgradeCarCommand = 67;
+	
+	optional RequestUpgradeCarPartCommand requestUpgradeCarPartCommand = 68;
+	
+	optional RequestTournamentScoreRankList requestTournamentScoreRankList = 69;
+	
+	optional RequestTrackInfoCommand requestTrackInfo = 70;
+	
+	optional RequestTakeNovicePackage requestTakeNovicePackage = 71;
+	
+	optional RequestRefrashUserData requestRefrashUserData = 72;
+}
+
+// response command list transfer only use it
+message ResponseCommand {
+	required HeadInfo head = 1;
+	optional ResponseTrackCommand trackCommand = 2;
+	optional ResponseUserInfoCommand userInfoCommand = 3;
+	optional ResponseRacerForGhostCommand ghostCommand = 4;
+	optional ResponseRaceResultCommand raceResultCommand = 5;
+	optional ResponseTournamentRewardDetailCommand tournamentRewardDetailCommand = 7;
+	optional ResponseResourceCommand resourceCommand = 10;
+	//optional ResponseBindingWeiboCommand bindingWeiboCommand = 11;
+	//optional ResponseGetWeiboUserCommand getWeiboUserCommand = 12;
+	optional ResponseRaceStartCommand raceStartCommand = 19;
+	optional ResponseBindingStartCommand bindingStartCommand = 20;
+	optional ResponseBindingResultCommand bindingResultCommand = 21;
+	optional ResponseBindingConfirmCommand bindingConfirmCommand = 22;
+	optional ResponseBindingPopupCommand bindingPopupCommand = 23;
+	optional ErrorCommand errorCommand = 24;
+	optional ResponseModeInfoCommand modeInfoCommand = 25;
+	optional responseTournamentRewardCommand rewardCommand = 26;
+	optional ResponseGetRewardCommand getReward = 27;
+	optional ResponseTournamentRaceResultCommand tournamentRaceReault = 29;
+	//garage
+	optional ResponseGarageCommand garageCommand = 30;
+	optional ResponseBuyCarCommand buyCarCommand = 31;
+	optional ResponseCarDataCommand carDataCommand = 32;
+	optional ResponseUseChartletCommand useChartletCommand = 34;
+	optional ResponseModifyUserInfoCommand modifyUserInfoCommand = 35;
+	//store
+	optional ResponseStoreDetailCommand storeDetailCommand = 37;
+	optional ResponseBuyItemCommand buyItemCommand = 38;
+	optional ResponseSystemCommand systemCommand = 39;
+	//weibo share locks
+	optional ResponseWeiboShareLocksCommand weiboShareCommand = 40;
+	//jaguar
+	optional ResponseRegistJaguarCommand registJaguar = 41;
+	//feed
+	optional ResponseFeedCommand feedCommand = 42;
+	optional ResponseIapCheckCommand IapCheckCommand = 43;
+	optional ResponseTournamentNotificationCommand tournamentNotificationCommand = 44;
+	
+	optional ResponseTutorialRewardCommand tutorialRewardCommand = 45;
+	optional ResponsePopupCommand popupCommand = 46;
+
+	optional ResponseNotificationCommand notificationCommand = 48;
+	optional ResponseGhostRecordCommand ghostRecordCommand =49;
+	optional ResponseTournamentRewardNumCommand tournamentRewardNumCommand = 50;
+	// profile
+	optional ResponseProfileUserDataCommand profileUserDataCommand = 51;
+	optional ResponseProfileNextCarCommand profileNextCarCommand = 52;
+	optional ResponseProfileLikeCommand profileLikeCommand = 53;
+	optional ResponseProfileReportCommand profileReportCommand = 54;
+	optional ResponseProfileVSCommand profileVSCommand = 55;
+	
+	// new dynamic leaderboard
+	optional ResponseLeaderboardClass leaderboardClassCommand = 57;
+	optional ResponseLeaderboard leaderboardCommand = 58;
+	optional ResponseTournamentNum responseTournamentNum=59;
+    
+    // android payment 2013-5-29
+    optional ResponseStoreItems responseStoreItems = 60;
+    optional ResponsePaymentURL responsePaymentURL = 61;
+    optional ResponsePaymentState responsePaymentState = 62;
+    // 2013-6-9
+    optional ResponseGameConfig responseGameConfig = 63;
+	
+	optional ResponseChannelBindingResultCommand responseChannelBindingResult = 65;
+	
+	//response gatchainfo
+	optional ResponseGatchaInfo responseGatchaInfo = 66;
+	
+	//response gatcha
+	optional ResponseGatcha responseGatcha = 67;
+	
+	// response new gotcha
+	optional ResponseGatchaTimes responseGatchaTimes = 68;
+	
+	// response randomEventAlarm
+	optional ResponseRandomEventAlarm randomEventAlarm = 69;
+	
+	optional ResponseServerUrl responseServerUrl = 70;
+	
+	optional ResponseSnsSupportInfo responseSnsSuportInfo = 71;
+	
+	optional ResponseTutorialInfo responseTutorialInfo = 72;
+	
+	//temp
+	optional ResponseFeaturesSwitchCommand featuresSwitchCommand = 73; 
+	
+	
+   optional ResponseGatherCommand responseGatherCommand = 74;
+   
+   optional ResponseGatherInfo responseGatherInfo = 75;   
+   
+   optional ResponseNewLeaderboardClass responseNewLeaderboardClass = 76;  
+
+   optional ResponseNewLeaderboard responseNewLeaderboard = 77;  
+
+   optional ResponseFragData   responseFragData = 78;
+   
+   optional ResponseDisabledAppList responseDisabledAppList = 79;
+   
+   optional ResponseLibFileCheckInfoCommand responseLibFileCheckInfoCommand = 80;
+
+   optional ResponsePropInfo responsePropInfo = 81;
+   
+   optional ResponseConsumeProp responseConsumeProp = 82;
+
+   optional ResponseUpgradeCar responseUpgradeCar = 83;
+   
+   optional ResponseUpgradeCarPart responseUpgradeCarPart = 84;
+
+   optional ResponseTournamentScoreRankList responseTournamentScoreRankList = 85;
+   
+   optional ResponseTournamentModeInfoCommand responseTournamentModeInfoCommand = 86;
+   
+   optional ResponseTournamentCarLimit responseTournamentCarLimit = 87;
+}
+
+

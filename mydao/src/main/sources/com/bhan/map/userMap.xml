@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig 
+PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" 
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMap>
+	<typeAlias type="ch10.SpringAndIbatis.Ibatis" alias="user" />
+	<resultMap id="ibatisTest" class="user">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getAllUsers" resultMap="userList">
+		select * from User
+	</select>
+
+</sqlMap>

@@ -1,0 +1,3 @@
+2015-03-09 09:57:58,484 [localhost-startStop-1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2015-03-09 09:57:58,687 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [sqlMapConfig.xml]'
+2015-03-09 09:57:58,906 [localhost-startStop-1] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'class path resource [com/bhan/dao/mapper/UserMapper.xml]'

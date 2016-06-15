@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="urlHandleMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="remove.do">removeHandler</prop>
+				<prop key="handler.do">handlerController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Paramenter Method -->
+	<bean id="paraMethodResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName">
+			<value>action</value>
+		</property>
+	</bean>
+
+	<!-- request command -->
+	<bean id="internalPathResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
+
+
+	<bean id="handlerController" class="com.bhan.web.HandlerController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+		<!-- <property name="methodNameResolver" ref="internalPathResolver"/> -->
+		<property name="userServices" ref="userServices" />
+	</bean>
+
+
+
+	<bean id="removeHandler" class="com.bhan.web.RemoveHandler">
+		<property name="methodNameResolver">
+			<ref bean="internalPathResolver" />
+		</property>
+		<property name="userServices" ref="userServices" />
+	</bean>
+
+
+
+</beans>
